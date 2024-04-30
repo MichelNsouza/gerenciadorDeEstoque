@@ -2,17 +2,20 @@ package gerenciadorDeEstoque;
 
 import javax.swing.*;
 
+import gerenciadorDeEstoque.repository.Conexao;
 import gerenciadorDeEstoque.view.ClientePanel;
 import gerenciadorDeEstoque.view.ProdutoPanel;
 import gerenciadorDeEstoque.view.VendasPanel;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.sql.Connection;
 
 
 public class Main extends JFrame {
 
     private static final long serialVersionUID = 1L;
+    private Connection conexaoBd = Conexao.obterConexao();
 
     public static void main(String[] args) {
         EventQueue.invokeLater(new Runnable() {
