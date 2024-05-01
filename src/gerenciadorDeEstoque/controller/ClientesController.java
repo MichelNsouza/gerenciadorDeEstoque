@@ -7,121 +7,86 @@ import java.sql.Statement;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
+import gerenciadorDeEstoque.model.Cliente;
+
 public class ClientesController {
 
+	
     public ClientesController() {}
 
-    public void gravarCliente(Connection conexao, String nome, String email, String telefone) throws SQLException {
+    
+    public void gravarCliente(Connection conexao, Cliente cliente) throws SQLException {
         Statement declaracao = conexao.createStatement();
 
-        String querySQL = "INSERT INTO vendas.cliente(Nome, Email, Telefone) VALUES('" + nome + "', '" + email + "', '" + telefone + "')";
+        String querySQL = "INSERT INTO vendas.clientes(Nome) VALUES('" + cliente.getNome() + "')";
 
         declaracao.executeUpdate(querySQL);
     }
-
+    
     public void apagarCliente(Connection conexao, int id) throws SQLException {
         Statement declaracao = conexao.createStatement();
 
-        String querySQL = "DELETE FROM vendas.cliente WHERE Id = " + id;
+        String querySQL = "DELETE FROM vendas.clientes WHERE Id = " + id;
 
         declaracao.executeUpdate(querySQL);
     }
 
-    public void atualizarCliente(Connection conexao, int id, String nome, String email, String telefone) throws SQLException {
+    public void atualizarCliente(Connection conexao, int id, String nome) throws SQLException {
         Statement declaracao = conexao.createStatement();
 
-        String querySQL = "UPDATE vendas.cliente SET Nome = '" + nome + "', Email = '" + email + "', Telefone = '" + telefone + "' WHERE Id = " + id;
+        String querySQL = "UPDATE vendas.clientes SET Nome = '" + nome + "' WHERE Id = " + id;
 
         declaracao.executeUpdate(querySQL);
     }
 
-    public ResultSet listarTodosClientes(Connection conexao, JTable table) throws SQLException {
+    public DefaultTableModel listarTodosClientes(Connection conexao, JTable table) throws SQLException {
         Statement declaracao = conexao.createStatement();
 
-        ResultSet rs = declaracao.executeQuery("SELECT * FROM vendas.cliente");
+        ResultSet rs = declaracao.executeQuery("SELECT * FROM vendas.clientes");
 
-        String[] colunasTabela = {
-            "Id",
-            "Nome",
-            "Email",
-            "Telefone"
-        };
+        DefaultTableModel model = new DefaultTableModel();
+        model.setColumnIdentifiers(new Object[]{"id", "nome"});
 
-        DefaultTableModel modeloTabela = new DefaultTableModel(colunasTabela, 0);
-
-        if (rs != null) {
-            while (rs.next()) {
-                modeloTabela.addRow(new Object[] {
-                    rs.getInt("Id"),
-                    rs.getString("Nome"),
-                    rs.getString("Email"),
-                    rs.getString("Telefone")
-                });
-            }
-
-            table.setModel(modeloTabela);
+        while (rs.next()) {
+            model.addRow(new Object[]{rs.getInt("id"), rs.getString("nome")});
         }
 
-        return rs;
+        table.setModel(model);
+
+        return model;
     }
 
-    public ResultSet listarClienteId(Connection conexao, int id, JTable tableCliente) throws SQLException {
+    public DefaultTableModel listarClienteId(Connection conexao, int id, JTable tableCliente) throws SQLException {
         Statement declaracao = conexao.createStatement();
 
-        ResultSet rs = declaracao.executeQuery("SELECT * FROM vendas.cliente WHERE Id = " + id);
+        ResultSet rs = declaracao.executeQuery("SELECT * FROM vendas.clientes WHERE id = " + id);
 
-        String[] colunasTabela = {
-            "Id",
-            "Nome",
-            "Email",
-            "Telefone"
-        };
+        DefaultTableModel model = new DefaultTableModel();
+        model.setColumnIdentifiers(new Object[]{"id", "nome"});
 
-        DefaultTableModel modeloTabela = new DefaultTableModel(colunasTabela, 0);
-
-        if (rs != null) {
-            while (rs.next()) {
-                modeloTabela.addRow(new Object[] {
-                    rs.getInt("Id"),
-                    rs.getString("Nome"),
-                    rs.getString("Email"),
-                    rs.getString("Telefone")
-                });
-            }
-
-            tableCliente.setModel(modeloTabela);
+        while (rs.next()) {
+            model.addRow(new Object[]{rs.getInt("id"), rs.getString("nome")});
         }
 
-        return rs;
+        tableCliente.setModel(model);
+
+        return model;
     }
 
-    public ResultSet listarClienteNome(Connection conexao, String nome, JTable tableCliente) throws SQLException {
+    public DefaultTableModel listarClienteNome(Connection conexao, String nome, JTable tableCliente) throws SQLException {
         Statement declaracao = conexao.createStatement();
 
-        ResultSet rs = declaracao.executeQuery("SELECT * FROM vendas.cliente WHERE Nome = '" + nome + "'");
+        ResultSet rs = declaracao.executeQuery("SELECT * FROM vendas.clientes WHERE Nome LIKE '%" + nome + "%'");
 
-        String[] colunasTabela = {
-            "Id",
-            "Nome",
-            "Email",
-            "Telefone"
-        };
+        DefaultTableModel model = new DefaultTableModel();
+        model.setColumnIdentifiers(new Object[]{"id", "nome"});
 
-        DefaultTableModel modeloTabela = new DefaultTableModel(colunasTabela, 0);
-
-        if (rs != null) {
-            while (rs.next()) {
-                modeloTabela.addRow(new Object[] {
-                    rs.getInt("Id"),
-                    rs.getString("Nome"),
-                    rs.getString("Email"),
-                    rs.getString("Telefone")
-                });
-            }
-
-            tableCliente.setModel(modeloTabela);
+        while (rs.next()) {
+            model.addRow(new Object[]{rs.getInt("id"), rs.getString("nome")});
         }
 
-        return rs;
+        tableCliente.setModel(model);
+
+        return model;
     }
 }
