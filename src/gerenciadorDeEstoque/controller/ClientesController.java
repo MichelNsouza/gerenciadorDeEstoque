@@ -39,6 +39,7 @@ public class ClientesController {
         declaracao.executeUpdate(querySQL);
     }
 
+    
     public DefaultTableModel listarTodosClientes(Connection conexao, JTable table) throws SQLException {
         Statement declaracao = conexao.createStatement();
 
