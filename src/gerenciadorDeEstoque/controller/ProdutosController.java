@@ -7,14 +7,16 @@ import java.sql.Statement;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
+import gerenciadorDeEstoque.model.Produto;
+
 public class ProdutosController {
 
     public ProdutosController() {}
 
-    public void gravarProduto(Connection conexao, String descricao, double preco) throws SQLException {
+    public void gravarProduto(Connection conexao, Produto produto) throws SQLException {
         Statement declaracao = conexao.createStatement();
 
-        String querySQL = "INSERT INTO vendas.produto(Descricao, Preco) VALUES('" + descricao + "', " + preco + ")";
+        String querySQL = "INSERT INTO vendas.produtos(Descricao, Preco) VALUES('" + produto.getDescricao() + "', " + produto.getPreco() + ")";
 
         declaracao.executeUpdate(querySQL);
     }
@@ -22,7 +24,7 @@ public class ProdutosController {
     public void apagarProduto(Connection conexao, int id) throws SQLException {
         Statement declaracao = conexao.createStatement();
 
-        String querySQL = "DELETE FROM vendas.produto WHERE Id = " + id;
+        String querySQL = "DELETE FROM vendas.produtos WHERE Id = " + id;
 
         declaracao.executeUpdate(querySQL);
     }
@@ -30,92 +32,60 @@ public class ProdutosController {
     public void atualizarProduto(Connection conexao, int id, String descricao, double preco) throws SQLException {
         Statement declaracao = conexao.createStatement();
 
-        String querySQL = "UPDATE vendas.produto SET Descricao = '" + descricao + "', Preco = " + preco + " WHERE Id = " + id;
+        String querySQL = "UPDATE vendas.produtos SET Descricao = '" + descricao + "', Preco = " + preco + " WHERE Id = " + id;
 
         declaracao.executeUpdate(querySQL);
     }
 
-    public ResultSet listarTodosProdutos(Connection conexao, JTable table) throws SQLException {
+    public DefaultTableModel listarTodosProdutos(Connection conexao, JTable table) throws SQLException {
         Statement declaracao = conexao.createStatement();
 
-        ResultSet rs = declaracao.executeQuery("SELECT * FROM vendas.produto");
+        ResultSet rs = declaracao.executeQuery("SELECT * FROM vendas.produtos");
 
-        String[] colunasTabela = {
-            "Id",
-            "Descrição",
-            "Preço"
-        };
+        DefaultTableModel model = new DefaultTableModel();
+        model.setColumnIdentifiers(new Object[]{"Id", "Descrição", "Preço"});
 
-        DefaultTableModel modeloTabela = new DefaultTableModel(colunasTabela, 0);
-
-        if (rs != null) {
-            while (rs.next()) {
-                modeloTabela.addRow(new Object[] {
-                    rs.getInt("Id"),
-                    rs.getString("Descricao"),
-                    rs.getDouble("Preco")
-                });
-            }
-
-            table.setModel(modeloTabela);
+        while (rs.next()) {
+            model.addRow(new Object[]{rs.getInt("Id"), rs.getString("Descricao"), rs.getDouble("Preco")});
         }
 
-        return rs;
+        table.setModel(model);
+
+        return model;
     }
 
-    public ResultSet listarProdutoId(Connection conexao, int id, JTable tableProduto) throws SQLException {
+
+    public DefaultTableModel listarProdutoId(Connection conexao, int id, JTable tableProduto) throws SQLException {
         Statement declaracao = conexao.createStatement();
 
-        ResultSet rs = declaracao.executeQuery("SELECT * FROM vendas.produto WHERE Id = " + id);
+        ResultSet rs = declaracao.executeQuery("SELECT * FROM vendas.produtos WHERE Id = " + id);
 
-        String[] colunasTabela = {
-            "Id",
-            "Descrição",
-            "Preço"
-        };
+        DefaultTableModel model = new DefaultTableModel();
+        model.setColumnIdentifiers(new Object[]{"Id", "Descrição", "Preço"});
 
-        DefaultTableModel modeloTabela = new DefaultTableModel(colunasTabela, 0);
-
-        if (rs != null) {
-            while (rs.next()) {
-                modeloTabela.addRow(new Object[] {
-                    rs.getInt("Id"),
-                    rs.getString("Descricao"),
-                    rs.getDouble("Preco")
-                });
-            }
-
-            tableProduto.setModel(modeloTabela);
+        while (rs.next()) {
+            model.addRow(new Object[]{rs.getInt("Id"), rs.getString("Descricao"), rs.getDouble("Preco")});
         }
 
-        return rs;
+        tableProduto.setModel(model);
+
+        return model;
     }
 
-    public ResultSet listarProdutoDescricao(Connection conexao, String descricao, JTable tableProduto) throws SQLException {
+    public DefaultTableModel listarProdutoDescricao(Connection conexao, String descricao, JTable tableProduto) throws SQLException {
         Statement declaracao = conexao.createStatement();
 
-        ResultSet rs = declaracao.executeQuery("SELECT * FROM vendas.produto WHERE Descricao = '" + descricao + "'");
+        ResultSet rs = declaracao.executeQuery("SELECT * FROM vendas.produtos WHERE Descricao LIKE '%" + descricao + "%'");
 
-        String[] colunasTabela = {
-            "Id",
-            "Descrição",
-            "Preço"
-        };
+        DefaultTableModel model = new DefaultTableModel();
+        model.setColumnIdentifiers(new Object[]{"Id", "Descrição", "Preço"});
 
-        DefaultTableModel modeloTabela = new DefaultTableModel(colunasTabela, 0);
-
-        if (rs != null) {
-            while (rs.next()) {
-                modeloTabela.addRow(new Object[] {
-                    rs.getInt("Id"),
-                    rs.getString("Descricao"),
-                    rs.getDouble("Preco")
-                });
-            }
-
-            tableProduto.setModel(modeloTabela);
+        while (rs.next()) {
+            model.addRow(new Object[]{rs.getInt("Id"), rs.getString("Descricao"), rs.getDouble("Preco")});
         }
 
-        return rs;
+        tableProduto.setModel(model);
+
+        return model;
     }
 }
