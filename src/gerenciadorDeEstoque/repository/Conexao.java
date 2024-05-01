@@ -12,8 +12,10 @@ public class Conexao {
             return conexao;
         } else {
             String servidor = "jdbc:mysql://localhost:3306/vendas";
-            String usuario = "workbench";
-            String senha = "PASSWORD";
+           // String usuario = "workbench";
+           // String senha = "PASSWORD";
+            String usuario = "root";
+            String senha = "";
             String driver = "com.mysql.cj.jdbc.Driver";
 
             try {
