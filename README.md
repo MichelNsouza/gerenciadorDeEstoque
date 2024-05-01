@@ -30,8 +30,8 @@ CREATE TABLE Item (
     Id INT PRIMARY KEY AUTO_INCREMENT,
     PedidoId INT,
     ProdutoId INT,
+    Quantidade INT,
     Preco DECIMAL(10, 2),
     FOREIGN KEY (PedidoId) REFERENCES Pedido(id),
     FOREIGN KEY (ProdutoId) REFERENCES Produto(id)
 );
-
