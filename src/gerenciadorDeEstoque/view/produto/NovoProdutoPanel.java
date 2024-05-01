@@ -33,6 +33,7 @@ public class NovoProdutoPanel extends JPanel {
         add(lblTitulo);
 
         nomeTextField = new JTextField();
+        springLayout.putConstraint(SpringLayout.NORTH, nomeTextField, 133, SpringLayout.NORTH, this);
         springLayout.putConstraint(SpringLayout.WEST, nomeTextField, 0, SpringLayout.WEST, lblTitulo);
         springLayout.putConstraint(SpringLayout.EAST, nomeTextField, 0, SpringLayout.EAST, lblTitulo);
         add(nomeTextField);
@@ -75,10 +76,9 @@ public class NovoProdutoPanel extends JPanel {
         add(btnVoltar);
 
         JLabel lblNome = new JLabel("Informe o nome do produto:");
-        springLayout.putConstraint(SpringLayout.NORTH, nomeTextField, 6, SpringLayout.SOUTH, lblNome);
-        springLayout.putConstraint(SpringLayout.NORTH, lblNome, 77, SpringLayout.SOUTH, lblTitulo);
-        springLayout.putConstraint(SpringLayout.SOUTH, lblNome, -173, SpringLayout.SOUTH, this);
-        springLayout.putConstraint(SpringLayout.WEST, lblNome, 10, SpringLayout.WEST, this);
+        springLayout.putConstraint(SpringLayout.NORTH, lblNome, 67, SpringLayout.SOUTH, lblTitulo);
+        springLayout.putConstraint(SpringLayout.WEST, lblNome, 0, SpringLayout.WEST, lblTitulo);
+        springLayout.putConstraint(SpringLayout.SOUTH, lblNome, -16, SpringLayout.NORTH, nomeTextField);
         springLayout.putConstraint(SpringLayout.EAST, lblNome, 0, SpringLayout.EAST, lblTitulo);
         lblNome.setFont(new Font("Tahoma", Font.PLAIN, 16));
         add(lblNome);
