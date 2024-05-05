@@ -30,6 +30,7 @@ public class VendasPanel extends JPanel {
 	private JTextField textField_qtd;
 	private Connection conexaoBd = Conexao.obterConexao();
 	private VendasController vendasController = new VendasController();
+
 	public VendasPanel(Main main) {
     	setBackground(new Color(192, 192, 192)); 
         JButton btnVoltar = new JButton("Voltar");
@@ -165,5 +166,6 @@ public class VendasPanel extends JPanel {
         });
 
         add(btnAdicionar);
+		vendasController.atualizarTabelaVendas(conexaoBd, tableVendas);
     }
 }
