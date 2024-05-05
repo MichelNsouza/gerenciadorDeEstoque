@@ -71,6 +71,7 @@ public class ProdutosController {
 
         return model;
     }
+   
 
     public DefaultTableModel listarProdutoDescricao(Connection conexao, String descricao, JTable tableProduto) throws SQLException {
         Statement declaracao = conexao.createStatement();

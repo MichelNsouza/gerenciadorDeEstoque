@@ -1,5 +1,6 @@
 package gerenciadorDeEstoque.view.home;
 
+import gerenciadorDeEstoque.Main;
 import gerenciadorDeEstoque.view.cliente.ClientePanel;
 import gerenciadorDeEstoque.view.produto.ProdutoPanel;
 import gerenciadorDeEstoque.view.venda.VendasPanel;

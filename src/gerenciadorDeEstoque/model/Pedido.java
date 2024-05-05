@@ -1,22 +1,31 @@
 package gerenciadorDeEstoque.model;
 
-public class Venda {
-    private int id;
-    private int clienteId;
-    private double total;
+import java.util.Date;
 
-    public Venda(int clienteId, double total) {
+public class Pedido {
+    private int id;
+    private Date dtCadastro;
+    private int clienteId;
+
+    public Pedido(int clienteId) {
         this.clienteId = clienteId;
-        this.total = total;
+        this.dtCadastro = new Date(); 
     }
 
-    // Getters e Setters
     public int getId() {
         return id;
     }
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public Date getDtCadastro() {
+        return dtCadastro;
+    }
+
+    public void setDtCadastro(Date dtCadastro) {
+        this.dtCadastro = dtCadastro;
     }
 
     public int getClienteId() {
@@ -26,12 +35,5 @@ public class Venda {
     public void setClienteId(int clienteId) {
         this.clienteId = clienteId;
     }
-
-    public double getTotal() {
-        return total;
-    }
-
-    public void setTotal(double total) {
-        this.total = total;
-    }
 }
+

@@ -1,6 +1,6 @@
 package gerenciadorDeEstoque.view.cliente;
 
-import gerenciadorDeEstoque.view.home.Main;
+import gerenciadorDeEstoque.Main;
 import gerenciadorDeEstoque.controller.ClientesController;
 import gerenciadorDeEstoque.model.Cliente;
 import gerenciadorDeEstoque.repository.Conexao;
