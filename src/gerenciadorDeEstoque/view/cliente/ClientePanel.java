@@ -1,9 +1,9 @@
 package gerenciadorDeEstoque.view.cliente;
 
+import gerenciadorDeEstoque.Main;
 import gerenciadorDeEstoque.controller.ClientesController;
 import gerenciadorDeEstoque.repository.Conexao;
 import gerenciadorDeEstoque.view.home.HomePanel;
-import gerenciadorDeEstoque.view.home.Main;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

@@ -1,9 +1,9 @@
 package gerenciadorDeEstoque.view.produto;
 
+import gerenciadorDeEstoque.Main;
 import gerenciadorDeEstoque.controller.ProdutosController;
 import gerenciadorDeEstoque.repository.Conexao;
 import gerenciadorDeEstoque.view.home.HomePanel;
-import gerenciadorDeEstoque.view.home.Main;
 
 import java.awt.Color;
 import java.awt.Font;

@@ -1,6 +1,6 @@
 package gerenciadorDeEstoque.view.produto;
 
-import gerenciadorDeEstoque.view.home.Main;
+import gerenciadorDeEstoque.Main;
 import gerenciadorDeEstoque.controller.ProdutosController;
 import gerenciadorDeEstoque.model.Produto;
 import gerenciadorDeEstoque.repository.Conexao;

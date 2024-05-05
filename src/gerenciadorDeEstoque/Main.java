@@ -1,8 +1,9 @@
-package gerenciadorDeEstoque.view.home;
+package gerenciadorDeEstoque;
 
 import javax.swing.*;
 
 import gerenciadorDeEstoque.repository.Conexao;
+import gerenciadorDeEstoque.view.home.HomePanel;
 
 import java.awt.*;
 import java.sql.Connection;
