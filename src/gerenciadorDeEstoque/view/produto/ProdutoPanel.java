@@ -2,6 +2,7 @@ package gerenciadorDeEstoque.view.produto;
 
 import gerenciadorDeEstoque.Main;
 import gerenciadorDeEstoque.controller.ProdutosController;
+import gerenciadorDeEstoque.model.Produto;
 import gerenciadorDeEstoque.repository.Conexao;
 import gerenciadorDeEstoque.view.home.HomePanel;
 
@@ -81,6 +82,8 @@ public class ProdutoPanel extends JPanel {
                             produtoController.apagarProduto(conexaoBd, produtoId);
                             produtostable.setModel(produtoController.listarTodosProdutos(conexaoBd, produtostable));
                         } catch (SQLException e1) {
+                            
+                            JOptionPane.showMessageDialog(ProdutoPanel.this, "Não é possível excluir este cliente porque há itens associados a ele.", "Erro ao excluir cliente", JOptionPane.ERROR_MESSAGE);
                             e1.printStackTrace();
                         }
                     }
@@ -177,10 +180,65 @@ public class ProdutoPanel extends JPanel {
         add(btnAtualizarLista);
         
         produtostable = new JTable();
-        springLayout.putConstraint(SpringLayout.NORTH, produtostable, 12, SpringLayout.SOUTH, descricaotextField);
+        springLayout.putConstraint(SpringLayout.NORTH, produtostable, 25, SpringLayout.SOUTH, descricaotextField);
         springLayout.putConstraint(SpringLayout.WEST, produtostable, 10, SpringLayout.WEST, this);
         springLayout.putConstraint(SpringLayout.SOUTH, produtostable, -10, SpringLayout.NORTH, btnVoltar);
         springLayout.putConstraint(SpringLayout.EAST, produtostable, 0, SpringLayout.EAST, btnExcluir);
         add(produtostable);
+        
+        JButton btnEditar = new JButton("Editar");
+        btnEditar.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		int selectedRow = produtostable.getSelectedRow();
+                if (selectedRow != -1) {
+                    int produtoId = (int) produtostable.getValueAt(selectedRow, 0);
+                    String descricao = (String) produtostable.getValueAt(selectedRow, 1); 
+                    double preco = (double) produtostable.getValueAt(selectedRow, 2); 
+                    
+                    Produto produto = new Produto(descricao, preco);
+
+                    EditarProdutoPanel editarProdutoPanel = new EditarProdutoPanel(main, produtoId, produto);
+                    
+                    JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(ProdutoPanel.this);
+                    frame.setContentPane(editarProdutoPanel);
+                    frame.revalidate();
+
+                } else {
+                    JOptionPane.showMessageDialog(ProdutoPanel.this, "Selecione um produto para editar.", "Aviso",
+                            JOptionPane.WARNING_MESSAGE);
+                }
+        		
+        		
+        	}
+        });
+        springLayout.putConstraint(SpringLayout.NORTH, btnEditar, 0, SpringLayout.NORTH, btnVoltar);
+        springLayout.putConstraint(SpringLayout.WEST, btnEditar, 0, SpringLayout.WEST, lblId);
+        add(btnEditar);
+        
+        
+        
+        try {
+            produtostable.setModel(produtoController.listarTodosProdutos(conexaoBd, produtostable));
+            
+            JLabel lblNewLabel = new JLabel("Identificador");
+            springLayout.putConstraint(SpringLayout.WEST, lblNewLabel, 10, SpringLayout.WEST, this);
+            springLayout.putConstraint(SpringLayout.SOUTH, lblNewLabel, -6, SpringLayout.NORTH, produtostable);
+            springLayout.putConstraint(SpringLayout.EAST, lblNewLabel, -296, SpringLayout.EAST, this);
+            add(lblNewLabel);
+            
+            JLabel lblNewLabel_1 = new JLabel("Descrição do Produto");
+            springLayout.putConstraint(SpringLayout.NORTH, lblNewLabel_1, 5, SpringLayout.SOUTH, descricaotextField);
+            springLayout.putConstraint(SpringLayout.WEST, lblNewLabel_1, 6, SpringLayout.EAST, lblNewLabel);
+            springLayout.putConstraint(SpringLayout.EAST, lblNewLabel_1, -175, SpringLayout.EAST, this);
+            add(lblNewLabel_1);
+            
+            JLabel lblNewLabel_2 = new JLabel("Preço");
+            springLayout.putConstraint(SpringLayout.NORTH, lblNewLabel_2, 5, SpringLayout.SOUTH, descricaotextField);
+            springLayout.putConstraint(SpringLayout.WEST, lblNewLabel_2, 18, SpringLayout.EAST, lblNewLabel_1);
+            springLayout.putConstraint(SpringLayout.EAST, lblNewLabel_2, -68, SpringLayout.EAST, this);
+            add(lblNewLabel_2);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }
