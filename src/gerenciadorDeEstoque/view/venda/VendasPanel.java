@@ -18,6 +18,8 @@ import javax.swing.*;
 import java.awt.event.*;
 import java.awt.Color;
 import java.awt.Font;
+import javax.swing.GroupLayout.Alignment;
+import javax.swing.LayoutStyle.ComponentPlacement;
 
 
 public class VendasPanel extends JPanel {
@@ -41,90 +43,39 @@ public class VendasPanel extends JPanel {
                 frame.revalidate();
             }
         });
-        SpringLayout springLayout = new SpringLayout();
-        springLayout.putConstraint(SpringLayout.WEST, btnVoltar, 0, SpringLayout.WEST, this);
-        setLayout(springLayout);
-        add(btnVoltar);
         
         JLabel lblTitulo = new JLabel("Listagem de Vendas");
-        springLayout.putConstraint(SpringLayout.NORTH, btnVoltar, 0, SpringLayout.NORTH, lblTitulo);
-        springLayout.putConstraint(SpringLayout.SOUTH, btnVoltar, 0, SpringLayout.SOUTH, lblTitulo);
-        springLayout.putConstraint(SpringLayout.NORTH, lblTitulo, 0, SpringLayout.NORTH, this);
-        springLayout.putConstraint(SpringLayout.WEST, lblTitulo, 217, SpringLayout.WEST, this);
-        springLayout.putConstraint(SpringLayout.EAST, lblTitulo, -10, SpringLayout.EAST, this);
         lblTitulo.setFont(new Font("Tahoma", Font.PLAIN, 20));
         lblTitulo.setHorizontalAlignment(SwingConstants.CENTER);
-        add(lblTitulo);
         
         tableVendas = new JTable();
-        springLayout.putConstraint(SpringLayout.WEST, tableVendas, 10, SpringLayout.WEST, this);
-        springLayout.putConstraint(SpringLayout.SOUTH, tableVendas, -30, SpringLayout.SOUTH, this);
-        springLayout.putConstraint(SpringLayout.EAST, tableVendas, -10, SpringLayout.EAST, this);
-        add(tableVendas);
         
         JComboBox comboBox_cliente = new JComboBox();
-        springLayout.putConstraint(SpringLayout.NORTH, comboBox_cliente, 29, SpringLayout.NORTH, this);
-        springLayout.putConstraint(SpringLayout.SOUTH, lblTitulo, -6, SpringLayout.NORTH, comboBox_cliente);
-        springLayout.putConstraint(SpringLayout.WEST, comboBox_cliente, 170, SpringLayout.WEST, this);
-        springLayout.putConstraint(SpringLayout.EAST, comboBox_cliente, -13, SpringLayout.EAST, this);
-        add(comboBox_cliente);
         VendasController.atualizarClientesComboBox(conexaoBd, comboBox_cliente);
 
         
         JButton btnAdicionar = new JButton("Adicionar");
-        springLayout.putConstraint(SpringLayout.EAST, btnAdicionar, -10, SpringLayout.EAST, this);
         
        
         JComboBox comboBox_produtos = new JComboBox();
-        springLayout.putConstraint(SpringLayout.EAST, comboBox_produtos, -186, SpringLayout.EAST, this);
-        add(comboBox_produtos);
         VendasController.atualizarProdutosComboBox(conexaoBd, comboBox_produtos);
         
         JLabel lblNewLabel = new JLabel("Produto");
-        springLayout.putConstraint(SpringLayout.WEST, comboBox_produtos, 6, SpringLayout.EAST, lblNewLabel);
-        springLayout.putConstraint(SpringLayout.WEST, lblNewLabel, 10, SpringLayout.WEST, this);
-        add(lblNewLabel);
         
         JLabel lblNewLabel_1 = new JLabel("Qtd:");
-        springLayout.putConstraint(SpringLayout.NORTH, lblNewLabel_1, 4, SpringLayout.NORTH, btnAdicionar);
-        springLayout.putConstraint(SpringLayout.WEST, lblNewLabel_1, 6, SpringLayout.EAST, comboBox_produtos);
-        add(lblNewLabel_1);
         
         textField_id = new JTextField();
-        springLayout.putConstraint(SpringLayout.EAST, btnVoltar, 21, SpringLayout.EAST, textField_id);
-        springLayout.putConstraint(SpringLayout.NORTH, textField_id, 25, SpringLayout.NORTH, this);
-        springLayout.putConstraint(SpringLayout.NORTH, lblNewLabel, 20, SpringLayout.SOUTH, textField_id);
-        add(textField_id);
+        textField_id.setEditable(false);
         textField_id.setColumns(10);
         
         JLabel lblNewLabel_2 = new JLabel("Id:");
-        springLayout.putConstraint(SpringLayout.NORTH, lblNewLabel_2, 25, SpringLayout.NORTH, this);
-        springLayout.putConstraint(SpringLayout.WEST, lblNewLabel_2, 10, SpringLayout.WEST, this);
-        springLayout.putConstraint(SpringLayout.WEST, textField_id, 7, SpringLayout.EAST, lblNewLabel_2);
-        add(lblNewLabel_2);
         
         JLabel lblNewLabel_3 = new JLabel("Cliente");
-        springLayout.putConstraint(SpringLayout.EAST, textField_id, -59, SpringLayout.WEST, lblNewLabel_3);
-        springLayout.putConstraint(SpringLayout.NORTH, lblNewLabel_3, 4, SpringLayout.NORTH, comboBox_cliente);
-        springLayout.putConstraint(SpringLayout.EAST, lblNewLabel_3, -6, SpringLayout.WEST, comboBox_cliente);
-        add(lblNewLabel_3);
         
         JLabel lblNewLabel_4 = new JLabel("Pedidos do dia");
-        springLayout.putConstraint(SpringLayout.SOUTH, comboBox_produtos, -2, SpringLayout.NORTH, lblNewLabel_4);
-        springLayout.putConstraint(SpringLayout.SOUTH, btnAdicionar, -1, SpringLayout.NORTH, lblNewLabel_4);
-        springLayout.putConstraint(SpringLayout.NORTH, lblNewLabel_4, 89, SpringLayout.NORTH, this);
-        springLayout.putConstraint(SpringLayout.WEST, lblNewLabel_4, 10, SpringLayout.WEST, this);
-        springLayout.putConstraint(SpringLayout.EAST, lblNewLabel_4, -10, SpringLayout.EAST, this);
-        springLayout.putConstraint(SpringLayout.NORTH, tableVendas, 6, SpringLayout.SOUTH, lblNewLabel_4);
         lblNewLabel_4.setHorizontalAlignment(SwingConstants.CENTER);
-        add(lblNewLabel_4);
         
         textField_qtd = new JTextField();
-        springLayout.putConstraint(SpringLayout.WEST, btnAdicionar, 8, SpringLayout.EAST, textField_qtd);
-        springLayout.putConstraint(SpringLayout.NORTH, textField_qtd, 1, SpringLayout.NORTH, btnAdicionar);
-        springLayout.putConstraint(SpringLayout.WEST, textField_qtd, 6, SpringLayout.EAST, lblNewLabel_1);
-        springLayout.putConstraint(SpringLayout.EAST, textField_qtd, -111, SpringLayout.EAST, this);
-        add(textField_qtd);
         textField_qtd.setColumns(10);
         btnAdicionar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -164,8 +115,133 @@ public class VendasPanel extends JPanel {
                 }
             }
         });
-
-        add(btnAdicionar);
 		vendasController.atualizarTabelaVendas(conexaoBd, tableVendas);
+		
+		JButton btnNewButton = new JButton("Editar");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		
+		JButton btnNewButton_1 = new JButton("Excluir");
+		
+		JLabel lblNewLabel_5 = new JLabel("Data");
+		
+		JLabel lblNewLabel_6 = new JLabel("Produto");
+		
+		JLabel lblNewLabel_7 = new JLabel("Cliente");
+		
+		JLabel lblNewLabel_8 = new JLabel("Preço");
+		
+		JLabel lblNewLabel_9 = new JLabel("Quantidade");
+		
+		JLabel lblNewLabel_10 = new JLabel("Total");
+		GroupLayout groupLayout = new GroupLayout(this);
+		groupLayout.setHorizontalGroup(
+			groupLayout.createParallelGroup(Alignment.LEADING)
+				.addGroup(groupLayout.createSequentialGroup()
+					.addGap(10)
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
+						.addGroup(groupLayout.createSequentialGroup()
+							.addComponent(btnVoltar, GroupLayout.PREFERRED_SIZE, 81, GroupLayout.PREFERRED_SIZE)
+							.addGap(126)
+							.addComponent(lblTitulo, GroupLayout.PREFERRED_SIZE, 223, GroupLayout.PREFERRED_SIZE))
+						.addGroup(groupLayout.createSequentialGroup()
+							.addComponent(btnAdicionar, GroupLayout.PREFERRED_SIZE, 93, GroupLayout.PREFERRED_SIZE)
+							.addGap(6)
+							.addComponent(btnNewButton)
+							.addGap(6)
+							.addComponent(btnNewButton_1)
+							.addGap(53)
+							.addComponent(lblNewLabel_2)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(textField_id, GroupLayout.PREFERRED_SIZE, 41, GroupLayout.PREFERRED_SIZE)
+							.addPreferredGap(ComponentPlacement.UNRELATED)
+							.addComponent(lblNewLabel_1)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(textField_qtd, GroupLayout.PREFERRED_SIZE, 41, GroupLayout.PREFERRED_SIZE)
+							.addContainerGap())
+						.addComponent(lblNewLabel_4, GroupLayout.DEFAULT_SIZE, 430, Short.MAX_VALUE)
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGap(10)
+							.addComponent(lblNewLabel_5)
+							.addGap(37)
+							.addComponent(lblNewLabel_6)
+							.addGap(44)
+							.addComponent(lblNewLabel_7)
+							.addGap(48)
+							.addComponent(lblNewLabel_8)
+							.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+							.addComponent(lblNewLabel_9)
+							.addGap(40)
+							.addComponent(lblNewLabel_10)
+							.addGap(12))
+						.addComponent(tableVendas, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING, false)
+								.addGroup(groupLayout.createSequentialGroup()
+									.addComponent(lblNewLabel_3)
+									.addGap(16)
+									.addComponent(comboBox_cliente, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+								.addGroup(Alignment.LEADING, groupLayout.createSequentialGroup()
+									.addComponent(lblNewLabel)
+									.addGap(11)
+									.addComponent(comboBox_produtos, GroupLayout.PREFERRED_SIZE, 372, GroupLayout.PREFERRED_SIZE)))
+							.addContainerGap())))
+		);
+		groupLayout.setVerticalGroup(
+			groupLayout.createParallelGroup(Alignment.LEADING)
+				.addGroup(groupLayout.createSequentialGroup()
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGap(12)
+							.addComponent(btnVoltar, GroupLayout.PREFERRED_SIZE, 19, GroupLayout.PREFERRED_SIZE))
+						.addComponent(lblTitulo, GroupLayout.PREFERRED_SIZE, 23, GroupLayout.PREFERRED_SIZE))
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGap(10)
+							.addComponent(lblNewLabel_3))
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGap(6)
+							.addComponent(comboBox_cliente, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGap(10)
+							.addComponent(lblNewLabel))
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGap(6)
+							.addComponent(comboBox_produtos, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+						.addComponent(btnAdicionar)
+						.addComponent(btnNewButton)
+						.addComponent(btnNewButton_1)
+						.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+							.addComponent(lblNewLabel_2)
+							.addComponent(textField_id, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+							.addComponent(lblNewLabel_1)
+							.addComponent(textField_qtd, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
+					.addComponent(lblNewLabel_4, GroupLayout.PREFERRED_SIZE, 10, GroupLayout.PREFERRED_SIZE)
+					.addGap(6)
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+						.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+							.addComponent(lblNewLabel_8)
+							.addComponent(lblNewLabel_9)
+							.addComponent(lblNewLabel_7))
+						.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
+							.addGroup(groupLayout.createSequentialGroup()
+								.addComponent(lblNewLabel_10)
+								.addGap(2))
+							.addGroup(groupLayout.createSequentialGroup()
+								.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+									.addComponent(lblNewLabel_6)
+									.addComponent(lblNewLabel_5))
+								.addPreferredGap(ComponentPlacement.RELATED))))
+					.addGap(2)
+					.addComponent(tableVendas, GroupLayout.PREFERRED_SIZE, 142, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+		);
+		setLayout(groupLayout);
     }
 }

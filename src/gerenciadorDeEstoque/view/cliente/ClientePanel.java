@@ -2,8 +2,12 @@ package gerenciadorDeEstoque.view.cliente;
 
 import gerenciadorDeEstoque.Main;
 import gerenciadorDeEstoque.controller.ClientesController;
+import gerenciadorDeEstoque.model.Cliente;
+import gerenciadorDeEstoque.model.Produto;
 import gerenciadorDeEstoque.repository.Conexao;
 import gerenciadorDeEstoque.view.home.HomePanel;
+import gerenciadorDeEstoque.view.produto.EditarProdutoPanel;
+import gerenciadorDeEstoque.view.produto.ProdutoPanel;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -49,8 +53,8 @@ public class ClientePanel extends JPanel {
         add(btnVoltar);
         
         JButton novo = new JButton("Novo");
-        springLayout.putConstraint(SpringLayout.WEST, novo, 67, SpringLayout.EAST, btnVoltar);
-        springLayout.putConstraint(SpringLayout.SOUTH, novo, 0, SpringLayout.SOUTH, btnVoltar);
+        springLayout.putConstraint(SpringLayout.NORTH, novo, 0, SpringLayout.NORTH, btnVoltar);
+        springLayout.putConstraint(SpringLayout.WEST, novo, 35, SpringLayout.EAST, btnVoltar);
         novo.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
         		
@@ -137,7 +141,7 @@ public class ClientePanel extends JPanel {
         JButton btnAtualizar = new JButton("Atualizar Lista");
         springLayout.putConstraint(SpringLayout.NORTH, btnAtualizar, 20, SpringLayout.SOUTH, lblTitulo);
         springLayout.putConstraint(SpringLayout.WEST, btnAtualizar, 10, SpringLayout.WEST, this);
-        springLayout.putConstraint(SpringLayout.EAST, btnAtualizar, -284, SpringLayout.EAST, this);
+        springLayout.putConstraint(SpringLayout.EAST, btnAtualizar, 0, SpringLayout.EAST, btnVoltar);
         btnAtualizar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 try {
@@ -163,8 +167,8 @@ public class ClientePanel extends JPanel {
         idtextField.setColumns(10);
         
         nometextField = new JTextField();
+        springLayout.putConstraint(SpringLayout.NORTH, clientestable, 30, SpringLayout.SOUTH, nometextField);
         springLayout.putConstraint(SpringLayout.WEST, idtextField, 0, SpringLayout.WEST, nometextField);
-        springLayout.putConstraint(SpringLayout.NORTH, clientestable, 14, SpringLayout.SOUTH, nometextField);
         springLayout.putConstraint(SpringLayout.NORTH, nometextField, 6, SpringLayout.SOUTH, btnPesquisar);
         springLayout.putConstraint(SpringLayout.WEST, nometextField, 277, SpringLayout.WEST, this);
         springLayout.putConstraint(SpringLayout.EAST, nometextField, 0, SpringLayout.EAST, btnExcluir);
@@ -180,6 +184,51 @@ public class ClientePanel extends JPanel {
         springLayout.putConstraint(SpringLayout.NORTH, lblNome, 3, SpringLayout.NORTH, nometextField);
         springLayout.putConstraint(SpringLayout.EAST, lblNome, -6, SpringLayout.WEST, nometextField);
         add(lblNome);
+        
+        JButton btnNewButton = new JButton("Editar");
+        springLayout.putConstraint(SpringLayout.NORTH, btnNewButton, 0, SpringLayout.NORTH, btnVoltar);
+        springLayout.putConstraint(SpringLayout.WEST, btnNewButton, 0, SpringLayout.WEST, idtextField);
+        btnNewButton.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		int selectedRow = clientestable.getSelectedRow();
+                if (selectedRow != -1) {
+                    int clienteId = (int) clientestable.getValueAt(selectedRow, 0);
+                    
+                    String descricao = (String) clientestable.getValueAt(selectedRow, 1); 
+                    
+                    Cliente cli = new Cliente(descricao);
+
+                    EditarClientePanel editarClientePanel = new EditarClientePanel(main, clienteId, cli);
+                    
+                    JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(ClientePanel.this);
+                    frame.setContentPane(editarClientePanel);
+                    frame.revalidate();
+
+                } else {
+                    JOptionPane.showMessageDialog(ClientePanel.this, "Selecione um cliente para editar.", "Aviso",
+                            JOptionPane.WARNING_MESSAGE);
+                }
+        		
+        		
+        	}
+        });
+        add(btnNewButton);
       
+        
+        try {
+        	clientestable.setModel(clientesController.listarTodosClientes(conexaoBd, clientestable));
+        	
+        	JLabel lblNewLabel = new JLabel("Identificador");
+        	springLayout.putConstraint(SpringLayout.WEST, lblNewLabel, 0, SpringLayout.WEST, btnVoltar);
+        	springLayout.putConstraint(SpringLayout.SOUTH, lblNewLabel, -3, SpringLayout.NORTH, clientestable);
+        	add(lblNewLabel);
+        	
+        	JLabel lblNewLabel_1 = new JLabel("Nome do Cliente");
+        	springLayout.putConstraint(SpringLayout.SOUTH, lblNewLabel_1, -6, SpringLayout.NORTH, clientestable);
+        	springLayout.putConstraint(SpringLayout.EAST, lblNewLabel_1, -137, SpringLayout.EAST, this);
+        	add(lblNewLabel_1);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }
