@@ -9,6 +9,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.GroupLayout.Alignment;
 
 
 public class HomePanel extends JPanel {
@@ -24,20 +25,53 @@ public class HomePanel extends JPanel {
         JButton btnClientes = new JButton("Clientes");
         JButton btnProdutos = new JButton("Produtos");
         JButton btnVendas = new JButton("Vendas");
-        SpringLayout sl_buttonPanel = new SpringLayout();
-        sl_buttonPanel.putConstraint(SpringLayout.WEST, btnProdutos, 30, SpringLayout.EAST, btnClientes);
-        sl_buttonPanel.putConstraint(SpringLayout.EAST, btnProdutos, -20, SpringLayout.WEST, btnVendas);
-        sl_buttonPanel.putConstraint(SpringLayout.WEST, btnClientes, 47, SpringLayout.WEST, buttonPanel);
-        sl_buttonPanel.putConstraint(SpringLayout.NORTH, btnClientes, 0, SpringLayout.NORTH, btnProdutos);
-        sl_buttonPanel.putConstraint(SpringLayout.EAST, btnClientes, 142, SpringLayout.WEST, buttonPanel);
-        sl_buttonPanel.putConstraint(SpringLayout.EAST, btnVendas, -48, SpringLayout.EAST, buttonPanel);
-        sl_buttonPanel.putConstraint(SpringLayout.SOUTH, btnVendas, -120, SpringLayout.SOUTH, buttonPanel);
-        sl_buttonPanel.putConstraint(SpringLayout.SOUTH, btnProdutos, -120, SpringLayout.SOUTH, buttonPanel);
-        sl_buttonPanel.putConstraint(SpringLayout.WEST, btnVendas, -143, SpringLayout.EAST, buttonPanel);
-        buttonPanel.setLayout(sl_buttonPanel);
-        buttonPanel.add(btnClientes);
-        buttonPanel.add(btnProdutos);
-        buttonPanel.add(btnVendas);
+        
+        JLabel lblNewLabel = new JLabel("Cadastro de novos Produtos:");
+        lblNewLabel.setFont(new Font("Arial", Font.PLAIN, 16));
+        
+        JLabel lblCadastroDeNovos = new JLabel("Cadastro de novos Clientes:");
+        lblCadastroDeNovos.setFont(new Font("Arial", Font.PLAIN, 16));
+        
+        JLabel lblRegistreNovaVenda = new JLabel("Registre novas vendas:");
+        lblRegistreNovaVenda.setFont(new Font("Arial", Font.PLAIN, 16));
+        GroupLayout gl_buttonPanel = new GroupLayout(buttonPanel);
+        gl_buttonPanel.setHorizontalGroup(
+        	gl_buttonPanel.createParallelGroup(Alignment.LEADING)
+        		.addGroup(gl_buttonPanel.createSequentialGroup()
+        			.addGap(10)
+        			.addGroup(gl_buttonPanel.createParallelGroup(Alignment.LEADING)
+        				.addGroup(gl_buttonPanel.createSequentialGroup()
+        					.addComponent(lblNewLabel, GroupLayout.PREFERRED_SIZE, 238, GroupLayout.PREFERRED_SIZE)
+        					.addGap(6)
+        					.addComponent(btnProdutos, GroupLayout.PREFERRED_SIZE, 186, GroupLayout.PREFERRED_SIZE))
+        				.addGroup(gl_buttonPanel.createSequentialGroup()
+        					.addComponent(lblCadastroDeNovos, GroupLayout.PREFERRED_SIZE, 238, GroupLayout.PREFERRED_SIZE)
+        					.addGap(6)
+        					.addComponent(btnClientes, GroupLayout.PREFERRED_SIZE, 186, GroupLayout.PREFERRED_SIZE))
+        				.addGroup(gl_buttonPanel.createSequentialGroup()
+        					.addComponent(lblRegistreNovaVenda, GroupLayout.PREFERRED_SIZE, 238, GroupLayout.PREFERRED_SIZE)
+        					.addGap(6)
+        					.addComponent(btnVendas, GroupLayout.PREFERRED_SIZE, 186, GroupLayout.PREFERRED_SIZE))))
+        );
+        gl_buttonPanel.setVerticalGroup(
+        	gl_buttonPanel.createParallelGroup(Alignment.LEADING)
+        		.addGroup(gl_buttonPanel.createSequentialGroup()
+        			.addGap(44)
+        			.addGroup(gl_buttonPanel.createParallelGroup(Alignment.LEADING)
+        				.addComponent(lblNewLabel)
+        				.addComponent(btnProdutos))
+        			.addGap(41)
+        			.addGroup(gl_buttonPanel.createParallelGroup(Alignment.LEADING)
+        				.addComponent(lblCadastroDeNovos)
+        				.addComponent(btnClientes))
+        			.addGap(42)
+        			.addGroup(gl_buttonPanel.createParallelGroup(Alignment.LEADING)
+        				.addGroup(gl_buttonPanel.createSequentialGroup()
+        					.addGap(4)
+        					.addComponent(lblRegistreNovaVenda))
+        				.addComponent(btnVendas)))
+        );
+        buttonPanel.setLayout(gl_buttonPanel);
         btnClientes.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 main.setContentPane(new ClientePanel(main));
