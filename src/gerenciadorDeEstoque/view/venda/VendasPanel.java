@@ -30,8 +30,12 @@ public class VendasPanel extends JPanel {
 	private JTextField textField_qtd;
 	private Connection conexaoBd = Conexao.obterConexao();
 	private VendasController vendasController = new VendasController();
+    private int idPedidobase;
+    private Pedido pedidobase;
 
 	public VendasPanel(Main main) {
+		
+				
     	setBackground(new Color(192, 192, 192)); 
         JButton btnVoltar = new JButton("Voltar");
         btnVoltar.addActionListener(new ActionListener() {
@@ -126,46 +130,66 @@ public class VendasPanel extends JPanel {
         springLayout.putConstraint(SpringLayout.EAST, textField_qtd, -111, SpringLayout.EAST, this);
         add(textField_qtd);
         textField_qtd.setColumns(10);
+        comboBox_cliente.addActionListener(new ActionListener() {
+
+
+			public void actionPerformed(ActionEvent e) {
+            	
+                try {
+					conexaoBd.setAutoCommit(false);
+					System.out.println(comboBox_cliente.getSelectedIndex() + 1);
+					
+					int idCliente = comboBox_cliente.getSelectedIndex() + 1; 
+					
+					pedidobase = new Pedido(idCliente);
+					
+					 idPedidobase = vendasController.gravarPedido(conexaoBd,pedidobase);
+					 
+					 textField_id.setText(String.valueOf(idPedidobase));
+					 
+					
+				} catch (SQLException e1) {
+					
+					e1.printStackTrace();
+				}
+                
+            	}
+            });
+        add(btnAdicionar);
         btnAdicionar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 try {
+                	
                     int idCliente = comboBox_cliente.getSelectedIndex() + 1; 
                     int idProduto = comboBox_produtos.getSelectedIndex() + 1; 
                     double preco = vendasController.listarPrecoProdutoId(conexaoBd, idProduto);
                     int quantidade = Integer.parseInt(textField_qtd.getText()); 
                     
-                    // Iniciar uma transação
-                    conexaoBd.setAutoCommit(false);
+
+                    Item item = new Item(idPedidobase, idProduto, quantidade, preco);
+                    vendasController.gravarItemPedido(conexaoBd, item); 
+
+                   
                     
-                    Pedido pedido = new Pedido(idCliente);
-                    int pedidoId = vendasController.gravarPedido(conexaoBd, pedido); // Gravar o pedido
 
-                    Item item = new Item(pedidoId, idProduto, quantidade, preco); // Definir o ID do pedido
-                    vendasController.gravarItemPedido(conexaoBd, item); // Gravar o item
-
-                    // Confirmar a transação
+                    
                     conexaoBd.commit();
-
-                    // Atualizar a tabela de vendas
+                    textField_qtd.setText(""); 
+                    textField_id.setText("");
                     vendasController.atualizarTabelaVendas(conexaoBd, tableVendas);
-                    
-                    textField_qtd.setText(""); // Limpar o campo de quantidade
-                    
                 } catch (NumberFormatException ex) {
-                    ex.printStackTrace(); // Lidar com exceção de formato numérico
+                    ex.printStackTrace(); 
                 } catch (SQLException ex) {
-                    ex.printStackTrace(); // Lidar com exceção SQL
+                    ex.printStackTrace(); 
                     try {
-                        // Rollback em caso de exceção
                         conexaoBd.rollback();
                     } catch (SQLException rollbackEx) {
-                        rollbackEx.printStackTrace(); // Lidar com exceção de rollback
+                        rollbackEx.printStackTrace();
                     }
                 }
             }
         });
-
-        add(btnAdicionar);
-		vendasController.atualizarTabelaVendas(conexaoBd, tableVendas);
+        vendasController.atualizarTabelaVendas(conexaoBd, tableVendas);
     }
+	
 }

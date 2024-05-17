@@ -18,7 +18,7 @@ public class ClientesController {
     public void gravarCliente(Connection conexao, Cliente cliente) throws SQLException {
         Statement declaracao = conexao.createStatement();
 
-        String querySQL = "INSERT INTO vendas.clientes(Nome) VALUES('" + cliente.getNome() + "')";
+        String querySQL = "INSERT INTO vendas.clientes(nome) VALUES('" + cliente.getNome() + "')";
 
         declaracao.executeUpdate(querySQL);
     }
@@ -26,7 +26,7 @@ public class ClientesController {
     public void apagarCliente(Connection conexao, int id) throws SQLException {
         Statement declaracao = conexao.createStatement();
 
-        String querySQL = "DELETE FROM vendas.clientes WHERE Id = " + id;
+        String querySQL = "DELETE FROM vendas.clientes WHERE id = " + id;
 
         declaracao.executeUpdate(querySQL);
     }
@@ -34,7 +34,7 @@ public class ClientesController {
     public void atualizarCliente(Connection conexao, int id, String nome) throws SQLException {
         Statement declaracao = conexao.createStatement();
 
-        String querySQL = "UPDATE vendas.clientes SET Nome = '" + nome + "' WHERE Id = " + id;
+        String querySQL = "UPDATE vendas.clientes SET nome = '" + nome + "' WHERE id = " + id;
 
         declaracao.executeUpdate(querySQL);
     }
@@ -77,7 +77,7 @@ public class ClientesController {
     public DefaultTableModel listarClienteNome(Connection conexao, String nome, JTable tableCliente) throws SQLException {
         Statement declaracao = conexao.createStatement();
 
-        ResultSet rs = declaracao.executeQuery("SELECT * FROM vendas.clientes WHERE Nome LIKE '%" + nome + "%'");
+        ResultSet rs = declaracao.executeQuery("SELECT * FROM vendas.clientes WHERE nome LIKE '%" + nome + "%'");
 
         DefaultTableModel model = new DefaultTableModel();
         model.setColumnIdentifiers(new Object[]{"id", "nome"});
