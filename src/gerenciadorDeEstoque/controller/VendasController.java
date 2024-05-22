@@ -29,14 +29,14 @@ public class VendasController {
             String sql = "SELECT nome FROM clientes";
             try (PreparedStatement pstmt = conexao.prepareStatement(sql)) {
                 ResultSet rs = pstmt.executeQuery();
-
+                
                 ArrayList<String> dados = new ArrayList<>();
                 while (rs.next()) {
                     dados.add(rs.getString("nome"));
                 }
-
+                
                 comboBox.setModel(new DefaultComboBoxModel<>(dados.toArray(new String[0])));
-
+                
                 rs.close();
             }
         } catch (SQLException e) {
@@ -66,30 +66,32 @@ public class VendasController {
         }
     }
    
-    public int gravarPedido(Connection conexao, Pedido pedido) throws SQLException {
+    public int gravarPedido(Connection conexao, Pedido pedido) {
         String sql = "INSERT INTO Pedidos (dtCadastro, ClienteId) VALUES (CURRENT_TIMESTAMP, ?)";
         try (PreparedStatement pstmt = conexao.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS)) {
             pstmt.setInt(1, pedido.getClienteId());
-            System.out.println("Gravando pedido ...");
             pstmt.executeUpdate();
-            System.out.println("Gravando pedido 2 ...");
             ResultSet rs = pstmt.getGeneratedKeys();
             if (rs.next()) {
                 int pedidoId = rs.getInt(1);
                 pedido.setId(pedidoId);
                 return pedidoId;
             }
+
             throw new SQLException("Falha ao obter o ID do pedido gerado.");
         } catch (SQLException ex) {
             ex.printStackTrace();
-            conexao.rollback(); // Rollback em caso de exceção
-            throw ex; // Re-throw a exceção para que seja tratada no código cliente
+            try {
+
+                conexao.rollback();
+            } catch (SQLException rollbackEx) {
+                rollbackEx.printStackTrace();
+            }
+            return -1;
         }
     }
    
     public void gravarItemPedido(Connection conexao, Item item) throws SQLException {
-    	System.out.println("Gravando item do pedido...");
-
         String sql = "INSERT INTO Itens (PedidoId, ProdutoId, Quantidade, Preco) VALUES (?, ?, ?, ?)";
         try (PreparedStatement pstmt = conexao.prepareStatement(sql)) {
             pstmt.setInt(1, item.getPedidoId());
@@ -132,12 +134,10 @@ public class VendasController {
             try (PreparedStatement pstmt = conexao.prepareStatement(sql)) {
                 try (ResultSet rs = pstmt.executeQuery()) {
                     DefaultTableModel model = new DefaultTableModel();
-                    model.addColumn("Data");
-                    model.addColumn("Produto");
-                    model.addColumn("Cliente");
-                    model.addColumn("Preço");
-                    model.addColumn("Quantidade");
-                    model.addColumn("Total");
+
+                    // Definindo os nomes das colunas
+                    Object[] columnNames = {"Data", "Produto", "Cliente", "Preço", "Quantidade", "Total"};
+                    model.setColumnIdentifiers(columnNames);
 
                     while (rs.next()) {
                         Object[] row = {
@@ -150,11 +150,8 @@ public class VendasController {
                         };
                         model.addRow(row);
                     }
-                    
-                    Object[] columnNames = {"Data", "Produto", "Cliente", "Preço", "Quantidade", "Total"};
-                    model.addRow(columnNames);
 
-                    tableVendas.setModel(model);
+                    tableVendas.setModel(model); // Definindo o modelo da tabela
                 }
             }
         } catch (SQLException e) {
@@ -162,14 +159,5 @@ public class VendasController {
         }
     }
 
-    
-    public static void gravarVenda(Connection conexao, Venda venda) throws SQLException {
-        String sql = "INSERT INTO Vendas (data, clienteId, total) VALUES (CURRENT_TIMESTAMP, ?, ?)";
-        try (PreparedStatement pstmt = conexao.prepareStatement(sql)) {
-            pstmt.setInt(1, venda.getClienteId());
-            pstmt.setDouble(2, venda.getTotal());
-            pstmt.executeUpdate();
-        }
-    }
 
 }

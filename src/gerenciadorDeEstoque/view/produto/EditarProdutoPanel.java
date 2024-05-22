@@ -89,15 +89,6 @@ public class EditarProdutoPanel extends JPanel {
             }
         });
         add(btnVoltar);
-
-        JLabel lblNome = new JLabel("Informe o novo nome do produto:");
-        springLayout.putConstraint(SpringLayout.NORTH, lblNome, 39, SpringLayout.SOUTH, lblTitulo);
-        springLayout.putConstraint(SpringLayout.SOUTH, lblNome, -211, SpringLayout.SOUTH, this);
-        springLayout.putConstraint(SpringLayout.NORTH, nomeTextField, 6, SpringLayout.SOUTH, lblNome);
-        springLayout.putConstraint(SpringLayout.WEST, lblNome, 0, SpringLayout.WEST, lblTitulo);
-        springLayout.putConstraint(SpringLayout.EAST, lblNome, 0, SpringLayout.EAST, lblTitulo);
-        lblNome.setFont(new Font("Tahoma", Font.PLAIN, 16));
-        add(lblNome);
         add(btnSalvar);
         
         precotextField = new JTextField();
@@ -108,6 +99,7 @@ public class EditarProdutoPanel extends JPanel {
         precotextField.setText(Double.toString(produto.getPreco()));
 
         JLabel lblInformeOPreo = new JLabel("Informe o novo preço do produto:");
+        lblInformeOPreo.setHorizontalAlignment(SwingConstants.CENTER);
         springLayout.putConstraint(SpringLayout.SOUTH, lblInformeOPreo, -110, SpringLayout.SOUTH, this);
         springLayout.putConstraint(SpringLayout.NORTH, precotextField, 6, SpringLayout.SOUTH, lblInformeOPreo);
         springLayout.putConstraint(SpringLayout.WEST, lblInformeOPreo, 10, SpringLayout.WEST, this);
@@ -116,11 +108,20 @@ public class EditarProdutoPanel extends JPanel {
         add(lblInformeOPreo);
         
         JLabel lblNewLabel = new JLabel("E/OU");
-        lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 16));
-        lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-        springLayout.putConstraint(SpringLayout.NORTH, lblNewLabel, 18, SpringLayout.SOUTH, nomeTextField);
+        springLayout.putConstraint(SpringLayout.SOUTH, nomeTextField, -6, SpringLayout.NORTH, lblNewLabel);
         springLayout.putConstraint(SpringLayout.WEST, lblNewLabel, 0, SpringLayout.WEST, lblTitulo);
+        springLayout.putConstraint(SpringLayout.SOUTH, lblNewLabel, -6, SpringLayout.NORTH, lblInformeOPreo);
         springLayout.putConstraint(SpringLayout.EAST, lblNewLabel, 0, SpringLayout.EAST, lblTitulo);
+        lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
+        lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
         add(lblNewLabel);
+        
+        JLabel lblInformeONovo = new JLabel("Informe o novo nome do produto:");
+        springLayout.putConstraint(SpringLayout.WEST, lblInformeONovo, 0, SpringLayout.WEST, lblTitulo);
+        springLayout.putConstraint(SpringLayout.SOUTH, lblInformeONovo, -6, SpringLayout.NORTH, nomeTextField);
+        springLayout.putConstraint(SpringLayout.EAST, lblInformeONovo, 0, SpringLayout.EAST, lblTitulo);
+        lblInformeONovo.setHorizontalAlignment(SwingConstants.CENTER);
+        lblInformeONovo.setFont(new Font("Tahoma", Font.PLAIN, 16));
+        add(lblInformeONovo);
     }
 }

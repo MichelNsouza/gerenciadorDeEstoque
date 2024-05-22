@@ -10,6 +10,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.GroupLayout.Alignment;
+import javax.swing.LayoutStyle.ComponentPlacement;
 
 
 public class HomePanel extends JPanel {
@@ -34,42 +35,57 @@ public class HomePanel extends JPanel {
         
         JLabel lblRegistreNovaVenda = new JLabel("Registre novas vendas:");
         lblRegistreNovaVenda.setFont(new Font("Arial", Font.PLAIN, 16));
+        
+                JLabel lblBemVindo = new JLabel("Bem-vindo", SwingConstants.CENTER);
+                lblBemVindo.setFont(new Font("Arial", Font.BOLD, 24));
+        
+        JDesktopPane desktopPane = new JDesktopPane();
         GroupLayout gl_buttonPanel = new GroupLayout(buttonPanel);
         gl_buttonPanel.setHorizontalGroup(
         	gl_buttonPanel.createParallelGroup(Alignment.LEADING)
         		.addGroup(gl_buttonPanel.createSequentialGroup()
         			.addGap(10)
-        			.addGroup(gl_buttonPanel.createParallelGroup(Alignment.LEADING)
+        			.addGroup(gl_buttonPanel.createParallelGroup(Alignment.TRAILING, false)
         				.addGroup(gl_buttonPanel.createSequentialGroup()
         					.addComponent(lblNewLabel, GroupLayout.PREFERRED_SIZE, 238, GroupLayout.PREFERRED_SIZE)
         					.addGap(6)
-        					.addComponent(btnProdutos, GroupLayout.PREFERRED_SIZE, 186, GroupLayout.PREFERRED_SIZE))
+        					.addComponent(btnProdutos, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         				.addGroup(gl_buttonPanel.createSequentialGroup()
         					.addComponent(lblCadastroDeNovos, GroupLayout.PREFERRED_SIZE, 238, GroupLayout.PREFERRED_SIZE)
         					.addGap(6)
-        					.addComponent(btnClientes, GroupLayout.PREFERRED_SIZE, 186, GroupLayout.PREFERRED_SIZE))
+        					.addComponent(btnClientes, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         				.addGroup(gl_buttonPanel.createSequentialGroup()
         					.addComponent(lblRegistreNovaVenda, GroupLayout.PREFERRED_SIZE, 238, GroupLayout.PREFERRED_SIZE)
         					.addGap(6)
-        					.addComponent(btnVendas, GroupLayout.PREFERRED_SIZE, 186, GroupLayout.PREFERRED_SIZE))))
+        					.addComponent(btnVendas, GroupLayout.PREFERRED_SIZE, 136, GroupLayout.PREFERRED_SIZE)))
+        			.addPreferredGap(ComponentPlacement.RELATED)
+        			.addComponent(desktopPane, GroupLayout.PREFERRED_SIZE, 1, GroupLayout.PREFERRED_SIZE)
+        			.addGap(53))
+        		.addComponent(lblBemVindo, GroupLayout.DEFAULT_SIZE, 465, Short.MAX_VALUE)
         );
         gl_buttonPanel.setVerticalGroup(
         	gl_buttonPanel.createParallelGroup(Alignment.LEADING)
         		.addGroup(gl_buttonPanel.createSequentialGroup()
-        			.addGap(44)
-        			.addGroup(gl_buttonPanel.createParallelGroup(Alignment.LEADING)
-        				.addComponent(lblNewLabel)
-        				.addComponent(btnProdutos))
-        			.addGap(41)
-        			.addGroup(gl_buttonPanel.createParallelGroup(Alignment.LEADING)
-        				.addComponent(lblCadastroDeNovos)
-        				.addComponent(btnClientes))
-        			.addGap(42)
-        			.addGroup(gl_buttonPanel.createParallelGroup(Alignment.LEADING)
+        			.addComponent(lblBemVindo)
+        			.addGap(16)
+        			.addGroup(gl_buttonPanel.createParallelGroup(Alignment.TRAILING)
         				.addGroup(gl_buttonPanel.createSequentialGroup()
-        					.addGap(4)
-        					.addComponent(lblRegistreNovaVenda))
-        				.addComponent(btnVendas)))
+        					.addGroup(gl_buttonPanel.createParallelGroup(Alignment.LEADING)
+        						.addComponent(lblNewLabel)
+        						.addComponent(btnProdutos))
+        					.addGap(41)
+        					.addGroup(gl_buttonPanel.createParallelGroup(Alignment.LEADING)
+        						.addComponent(lblCadastroDeNovos)
+        						.addComponent(btnClientes))
+        					.addPreferredGap(ComponentPlacement.RELATED)
+        					.addGroup(gl_buttonPanel.createParallelGroup(Alignment.LEADING)
+        						.addGroup(gl_buttonPanel.createSequentialGroup()
+        							.addGap(46)
+        							.addComponent(lblRegistreNovaVenda))
+        						.addGroup(gl_buttonPanel.createSequentialGroup()
+        							.addGap(42)
+        							.addComponent(btnVendas))))
+        				.addComponent(desktopPane, GroupLayout.PREFERRED_SIZE, 1, GroupLayout.PREFERRED_SIZE)))
         );
         buttonPanel.setLayout(gl_buttonPanel);
         btnClientes.addActionListener(new ActionListener() {
@@ -90,9 +106,5 @@ public class HomePanel extends JPanel {
                 main.revalidate();
             }
         });
-
-        JLabel lblBemVindo = new JLabel("Bem-vindo", SwingConstants.CENTER);
-        lblBemVindo.setFont(new Font("Arial", Font.BOLD, 24));
-        add(lblBemVindo, BorderLayout.NORTH);
     }
 }

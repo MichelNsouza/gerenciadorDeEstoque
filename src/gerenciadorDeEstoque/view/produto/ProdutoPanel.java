@@ -56,7 +56,7 @@ public class ProdutoPanel extends JPanel {
 
         JButton novo = new JButton("Novo");
         springLayout.putConstraint(SpringLayout.NORTH, novo, 0, SpringLayout.NORTH, btnVoltar);
-        springLayout.putConstraint(SpringLayout.WEST, novo, 47, SpringLayout.EAST, btnVoltar);
+        springLayout.putConstraint(SpringLayout.WEST, novo, 46, SpringLayout.EAST, btnVoltar);
         novo.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(ProdutoPanel.this);
@@ -187,6 +187,8 @@ public class ProdutoPanel extends JPanel {
         add(produtostable);
         
         JButton btnEditar = new JButton("Editar");
+        springLayout.putConstraint(SpringLayout.NORTH, btnEditar, 0, SpringLayout.NORTH, btnVoltar);
+        springLayout.putConstraint(SpringLayout.WEST, btnEditar, 0, SpringLayout.WEST, idtextField);
         btnEditar.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
         		int selectedRow = produtostable.getSelectedRow();
@@ -211,8 +213,6 @@ public class ProdutoPanel extends JPanel {
         		
         	}
         });
-        springLayout.putConstraint(SpringLayout.NORTH, btnEditar, 0, SpringLayout.NORTH, btnVoltar);
-        springLayout.putConstraint(SpringLayout.WEST, btnEditar, 0, SpringLayout.WEST, lblId);
         add(btnEditar);
         
         
@@ -229,13 +229,13 @@ public class ProdutoPanel extends JPanel {
             JLabel lblNewLabel_1 = new JLabel("Descrição do Produto");
             springLayout.putConstraint(SpringLayout.NORTH, lblNewLabel_1, 5, SpringLayout.SOUTH, descricaotextField);
             springLayout.putConstraint(SpringLayout.WEST, lblNewLabel_1, 6, SpringLayout.EAST, lblNewLabel);
-            springLayout.putConstraint(SpringLayout.EAST, lblNewLabel_1, -175, SpringLayout.EAST, this);
+            springLayout.putConstraint(SpringLayout.EAST, lblNewLabel_1, -146, SpringLayout.EAST, this);
             add(lblNewLabel_1);
             
             JLabel lblNewLabel_2 = new JLabel("Preço");
             springLayout.putConstraint(SpringLayout.NORTH, lblNewLabel_2, 5, SpringLayout.SOUTH, descricaotextField);
-            springLayout.putConstraint(SpringLayout.WEST, lblNewLabel_2, 18, SpringLayout.EAST, lblNewLabel_1);
-            springLayout.putConstraint(SpringLayout.EAST, lblNewLabel_2, -68, SpringLayout.EAST, this);
+            springLayout.putConstraint(SpringLayout.WEST, lblNewLabel_2, 21, SpringLayout.EAST, lblNewLabel_1);
+            springLayout.putConstraint(SpringLayout.EAST, lblNewLabel_2, -10, SpringLayout.EAST, this);
             add(lblNewLabel_2);
         } catch (SQLException e) {
             e.printStackTrace();
