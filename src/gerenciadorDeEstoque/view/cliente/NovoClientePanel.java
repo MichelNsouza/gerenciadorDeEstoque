@@ -32,9 +32,9 @@ public class NovoClientePanel extends JPanel {
         add(lblTitulo);
 
         nomeTextField = new JTextField();
-        springLayout.putConstraint(SpringLayout.NORTH, nomeTextField, 167, SpringLayout.NORTH, this);
-        springLayout.putConstraint(SpringLayout.WEST, nomeTextField, 22, SpringLayout.WEST, lblTitulo);
-        springLayout.putConstraint(SpringLayout.EAST, nomeTextField, -32, SpringLayout.EAST, lblTitulo);
+        springLayout.putConstraint(SpringLayout.NORTH, nomeTextField, 163, SpringLayout.NORTH, this);
+        springLayout.putConstraint(SpringLayout.WEST, nomeTextField, 0, SpringLayout.WEST, lblTitulo);
+        springLayout.putConstraint(SpringLayout.EAST, nomeTextField, 0, SpringLayout.EAST, lblTitulo);
         add(nomeTextField);
         nomeTextField.setColumns(10);
 
@@ -77,10 +77,11 @@ public class NovoClientePanel extends JPanel {
                 add(btnVoltar);
         
                 JLabel lblNome = new JLabel("Informe o nome do cliente:");
-                springLayout.putConstraint(SpringLayout.NORTH, lblNome, 50, SpringLayout.SOUTH, lblTitulo);
-                springLayout.putConstraint(SpringLayout.WEST, lblNome, 71, SpringLayout.WEST, this);
-                springLayout.putConstraint(SpringLayout.SOUTH, lblNome, -67, SpringLayout.NORTH, nomeTextField);
-                springLayout.putConstraint(SpringLayout.EAST, lblNome, -89, SpringLayout.EAST, this);
+                lblNome.setHorizontalAlignment(SwingConstants.CENTER);
+                springLayout.putConstraint(SpringLayout.NORTH, lblNome, 83, SpringLayout.SOUTH, lblTitulo);
+                springLayout.putConstraint(SpringLayout.WEST, lblNome, 0, SpringLayout.WEST, lblTitulo);
+                springLayout.putConstraint(SpringLayout.SOUTH, lblNome, -30, SpringLayout.NORTH, nomeTextField);
+                springLayout.putConstraint(SpringLayout.EAST, lblNome, 0, SpringLayout.EAST, lblTitulo);
                 lblNome.setFont(new Font("Tahoma", Font.PLAIN, 20));
                 add(lblNome);
         add(btnSalvar);

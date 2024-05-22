@@ -77,6 +77,7 @@ public class EditarClientePanel extends JPanel {
         });
 
         JButton btnVoltar = new JButton("Voltar");
+        springLayout.putConstraint(SpringLayout.SOUTH, nomeTextField, -66, SpringLayout.NORTH, btnVoltar);
         springLayout.putConstraint(SpringLayout.NORTH, btnSalvar, 0, SpringLayout.NORTH, btnVoltar);
         springLayout.putConstraint(SpringLayout.WEST, btnVoltar, 10, SpringLayout.WEST, this);
         springLayout.putConstraint(SpringLayout.SOUTH, btnVoltar, -10, SpringLayout.SOUTH, this);
@@ -88,15 +89,14 @@ public class EditarClientePanel extends JPanel {
             }
         });
         add(btnVoltar);
-
-        JLabel lblNome = new JLabel("Informe o novo nome do cliente:");
-        springLayout.putConstraint(SpringLayout.NORTH, nomeTextField, 37, SpringLayout.SOUTH, lblNome);
-        springLayout.putConstraint(SpringLayout.NORTH, lblNome, 39, SpringLayout.SOUTH, lblTitulo);
-        springLayout.putConstraint(SpringLayout.SOUTH, lblNome, -211, SpringLayout.SOUTH, this);
-        springLayout.putConstraint(SpringLayout.WEST, lblNome, 0, SpringLayout.WEST, lblTitulo);
-        springLayout.putConstraint(SpringLayout.EAST, lblNome, 0, SpringLayout.EAST, lblTitulo);
-        lblNome.setFont(new Font("Tahoma", Font.PLAIN, 16));
-        add(lblNome);
         add(btnSalvar);
+        
+        JLabel lblInformeONovo = new JLabel("Informe o novo nome do cliente:");
+        springLayout.putConstraint(SpringLayout.WEST, lblInformeONovo, 0, SpringLayout.WEST, lblTitulo);
+        springLayout.putConstraint(SpringLayout.SOUTH, lblInformeONovo, -58, SpringLayout.NORTH, nomeTextField);
+        springLayout.putConstraint(SpringLayout.EAST, lblInformeONovo, 0, SpringLayout.EAST, lblTitulo);
+        lblInformeONovo.setHorizontalAlignment(SwingConstants.CENTER);
+        lblInformeONovo.setFont(new Font("Tahoma", Font.PLAIN, 20));
+        add(lblInformeONovo);
     }
 }

@@ -98,7 +98,7 @@ public class ClientePanel extends JPanel {
         
         JLabel lblTitulo = new JLabel("Listagem de clientes");
         springLayout.putConstraint(SpringLayout.NORTH, lblTitulo, 0, SpringLayout.NORTH, this);
-        springLayout.putConstraint(SpringLayout.SOUTH, lblTitulo, -266, SpringLayout.SOUTH, this);
+        springLayout.putConstraint(SpringLayout.SOUTH, lblTitulo, 23, SpringLayout.NORTH, this);
         lblTitulo.setFont(new Font("Tahoma", Font.PLAIN, 20));
         lblTitulo.setHorizontalAlignment(SwingConstants.CENTER);
         springLayout.putConstraint(SpringLayout.WEST, lblTitulo, 0, SpringLayout.WEST, this);
@@ -106,8 +106,6 @@ public class ClientePanel extends JPanel {
         add(lblTitulo);
         
         JButton btnPesquisar = new JButton("Pesquisar");
-        springLayout.putConstraint(SpringLayout.NORTH, btnPesquisar, 6, SpringLayout.SOUTH, lblTitulo);
-        springLayout.putConstraint(SpringLayout.EAST, btnPesquisar, 0, SpringLayout.EAST, btnExcluir);
         btnPesquisar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
             	
@@ -139,7 +137,8 @@ public class ClientePanel extends JPanel {
         add(btnPesquisar);
         
         JButton btnAtualizar = new JButton("Atualizar Lista");
-        springLayout.putConstraint(SpringLayout.NORTH, btnAtualizar, 20, SpringLayout.SOUTH, lblTitulo);
+        springLayout.putConstraint(SpringLayout.NORTH, btnAtualizar, 6, SpringLayout.SOUTH, lblTitulo);
+        springLayout.putConstraint(SpringLayout.NORTH, btnPesquisar, 0, SpringLayout.NORTH, btnAtualizar);
         springLayout.putConstraint(SpringLayout.WEST, btnAtualizar, 10, SpringLayout.WEST, this);
         springLayout.putConstraint(SpringLayout.EAST, btnAtualizar, 0, SpringLayout.EAST, btnVoltar);
         btnAtualizar.addActionListener(new ActionListener() {
@@ -155,39 +154,40 @@ public class ClientePanel extends JPanel {
         add(btnAtualizar);
     
         clientestable = new JTable();
-        springLayout.putConstraint(SpringLayout.WEST, clientestable, 10, SpringLayout.WEST, this);
+        springLayout.putConstraint(SpringLayout.NORTH, clientestable, 102, SpringLayout.NORTH, this);
+        springLayout.putConstraint(SpringLayout.WEST, clientestable, 0, SpringLayout.WEST, btnVoltar);
         springLayout.putConstraint(SpringLayout.SOUTH, clientestable, -6, SpringLayout.NORTH, btnVoltar);
         springLayout.putConstraint(SpringLayout.EAST, clientestable, 0, SpringLayout.EAST, btnExcluir);
         add(clientestable);
         
         idtextField = new JTextField();
-        springLayout.putConstraint(SpringLayout.NORTH, idtextField, 1, SpringLayout.NORTH, btnPesquisar);
-        springLayout.putConstraint(SpringLayout.EAST, idtextField, -28, SpringLayout.WEST, btnPesquisar);
+        springLayout.putConstraint(SpringLayout.NORTH, idtextField, 6, SpringLayout.SOUTH, lblTitulo);
         add(idtextField);
         idtextField.setColumns(10);
         
         nometextField = new JTextField();
-        springLayout.putConstraint(SpringLayout.NORTH, clientestable, 30, SpringLayout.SOUTH, nometextField);
-        springLayout.putConstraint(SpringLayout.WEST, idtextField, 0, SpringLayout.WEST, nometextField);
         springLayout.putConstraint(SpringLayout.NORTH, nometextField, 6, SpringLayout.SOUTH, btnPesquisar);
-        springLayout.putConstraint(SpringLayout.WEST, nometextField, 277, SpringLayout.WEST, this);
-        springLayout.putConstraint(SpringLayout.EAST, nometextField, 0, SpringLayout.EAST, btnExcluir);
+        springLayout.putConstraint(SpringLayout.EAST, btnPesquisar, 0, SpringLayout.EAST, nometextField);
+        springLayout.putConstraint(SpringLayout.WEST, idtextField, 0, SpringLayout.WEST, nometextField);
+        springLayout.putConstraint(SpringLayout.EAST, nometextField, -20, SpringLayout.EAST, this);
         add(nometextField);
         nometextField.setColumns(10);
         
         JLabel lblid = new JLabel("Id");
-        springLayout.putConstraint(SpringLayout.NORTH, lblid, 6, SpringLayout.SOUTH, lblTitulo);
+        springLayout.putConstraint(SpringLayout.NORTH, lblid, 4, SpringLayout.NORTH, btnPesquisar);
         springLayout.putConstraint(SpringLayout.EAST, lblid, -6, SpringLayout.WEST, idtextField);
         add(lblid);
         
         lblNome = new JLabel("Nome");
+        springLayout.putConstraint(SpringLayout.EAST, lblNome, -188, SpringLayout.EAST, this);
+        springLayout.putConstraint(SpringLayout.WEST, nometextField, 6, SpringLayout.EAST, lblNome);
         springLayout.putConstraint(SpringLayout.NORTH, lblNome, 3, SpringLayout.NORTH, nometextField);
-        springLayout.putConstraint(SpringLayout.EAST, lblNome, -6, SpringLayout.WEST, nometextField);
         add(lblNome);
         
         JButton btnNewButton = new JButton("Editar");
+        springLayout.putConstraint(SpringLayout.EAST, idtextField, -14, SpringLayout.EAST, btnNewButton);
         springLayout.putConstraint(SpringLayout.NORTH, btnNewButton, 0, SpringLayout.NORTH, btnVoltar);
-        springLayout.putConstraint(SpringLayout.WEST, btnNewButton, 0, SpringLayout.WEST, idtextField);
+        springLayout.putConstraint(SpringLayout.EAST, btnNewButton, -38, SpringLayout.WEST, btnExcluir);
         btnNewButton.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
         		int selectedRow = clientestable.getSelectedRow();
@@ -219,13 +219,14 @@ public class ClientePanel extends JPanel {
         	clientestable.setModel(clientesController.listarTodosClientes(conexaoBd, clientestable));
         	
         	JLabel lblNewLabel = new JLabel("Identificador");
-        	springLayout.putConstraint(SpringLayout.WEST, lblNewLabel, 0, SpringLayout.WEST, btnVoltar);
-        	springLayout.putConstraint(SpringLayout.SOUTH, lblNewLabel, -3, SpringLayout.NORTH, clientestable);
+        	springLayout.putConstraint(SpringLayout.WEST, lblNewLabel, 49, SpringLayout.WEST, this);
+        	springLayout.putConstraint(SpringLayout.SOUTH, lblNewLabel, -6, SpringLayout.NORTH, clientestable);
         	add(lblNewLabel);
         	
         	JLabel lblNewLabel_1 = new JLabel("Nome do Cliente");
-        	springLayout.putConstraint(SpringLayout.SOUTH, lblNewLabel_1, -6, SpringLayout.NORTH, clientestable);
-        	springLayout.putConstraint(SpringLayout.EAST, lblNewLabel_1, -137, SpringLayout.EAST, this);
+        	springLayout.putConstraint(SpringLayout.NORTH, lblNewLabel_1, 4, SpringLayout.SOUTH, nometextField);
+        	springLayout.putConstraint(SpringLayout.SOUTH, lblNewLabel_1, 18, SpringLayout.SOUTH, nometextField);
+        	springLayout.putConstraint(SpringLayout.EAST, lblNewLabel_1, 0, SpringLayout.EAST, btnNewButton);
         	add(lblNewLabel_1);
         } catch (SQLException e) {
             e.printStackTrace();
