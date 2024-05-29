@@ -1,10 +1,17 @@
-# Vendas_Oficial2POO2
+# Sistema de Gestão de Estoque
 
-Use a biblioteca 'mysql-connector-j-8.4.0'
+Este repositório contém o projeto proposto na disciplina de Programação Orientada a Objetos 2, ministrada pelo Professor Eliel Mota no curso de BSI da UNIME.
 
-Tabelas do banco de dados
+## Sobre o projeto
 
-Tabela clientes
+O sistema se trata de uma aplicação desktop construida em Java com o framework Swing, onde relizamos CRUD completo para produtos, clientes e pedidos.
+Optei por organizar o projeto utilizado o design patterns mvc.
+
+## Configuração do Projeto
+
+Use a biblioteca 'mysql-connector-j-8.4.0' para realizar a conexão com o banco de dados MySQL e utilize a seguinte query em seu SGBD de preferencia:
+
+```sql
 CREATE TABLE Clientes (
     id INT PRIMARY KEY AUTO_INCREMENT,
     nome VARCHAR(100)
@@ -32,3 +39,5 @@ CREATE TABLE Itens (
     FOREIGN KEY (PedidoId) REFERENCES Pedidos(id),
     FOREIGN KEY (ProdutoId) REFERENCES Produtos(id)
 );
+```
+# Imagens do projeto
